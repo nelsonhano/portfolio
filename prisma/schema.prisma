@@ -1,0 +1,313 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Enums ----------
+
+enum Visibility {
+  PUBLIC
+  UNLISTED
+  PRIVATE
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ---------- Models ----------
+
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique
+  username  String   @unique
+  emailVerified Boolean @default(false)
+  name      String?
+  bio       String?
+  image     String?
+  googleId  String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts        Post[]
+  projects     Project[]
+  sessions     Session[]
+  accounts     Account[]
+  testimonials Testimonial[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+
+  @@unique([token])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Project {
+  id            String        @id @default(uuid())
+  title         String
+  slug          String        @unique
+  shortDesc     String?
+  longDesc      String? // markdown or rich text stored as string
+  urlLive       String?
+  repoUrl       String?
+  videoUrl       String?
+  status        ProjectStatus @default(DRAFT)
+  publishedAt   DateTime?
+  featuredImage String? // primary image URL
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  version       Int           @default(1)
+  author        User          @relation(fields: [authorId], references: [id])
+  authorId      String
+
+  images       ProjectImage[]
+  tags         ProjectTag[]
+  technologies Technology[]
+  comment      Comment[]
+  meta         Json?
+
+  @@map("projects")
+}
+
+model ProjectImage {
+  id        String   @id @default(uuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  url       String
+  altText   String?
+  width     Int?
+  height    Int?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("projectImages")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  projects ProjectTag[]
+  postTags PostTag[]
+
+  @@map("tags")
+}
+
+model ProjectTag {
+  id        String  @id @default(uuid())
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  tag       Tag     @relation(fields: [tagId], references: [id])
+  tagId     String
+
+  @@unique([projectId, tagId])
+  @@map("projectTags")
+}
+
+model Technology {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  projects  Project[]
+
+  @@map("technologys")
+}
+
+model Post {
+  id          String     @id @default(uuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?
+  content     String // markdown / rich text
+  publishedAt DateTime?
+  visibility  Visibility @default(PUBLIC)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    String
+  comments    Comment[]
+  featuredImg String?
+  tags        PostTag[]
+  meta        Json?
+
+  @@map("posts")
+}
+
+model PostTag {
+  id     String @id @default(uuid())
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+  tag    Tag    @relation(fields: [tagId], references: [id])
+  tagId  String
+
+  @@unique([postId, tagId])
+  @@map("postTags")
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  authorName  String
+  authorEmail String
+  content     String
+  createdAt   DateTime @default(now())
+  approved    Boolean  @default(false)
+  post        Post?    @relation(fields: [postId], references: [id])
+  postId      String?
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String?
+
+  @@map("comments")
+}
+
+model Testimonial {
+  id         String     @id @default(uuid())
+  content    String
+  authorName String
+  authorRole String?
+  author     User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   String?
+  sourceUrl  String? // link to LinkedIn recommendation, etc.
+  createdAt  DateTime   @default(now())
+  visibility Visibility @default(PUBLIC)
+
+  @@map("testimonials")
+}
+
+model Experience {
+  id           String    @id @default(uuid())
+  company      String
+  role         String
+  startDate    DateTime
+  endDate      DateTime?
+  ongoing      Boolean   @default(false)
+  location     String?
+  summary      String?
+  achievements String[] // array of bullets
+  createdAt    DateTime  @default(now())
+  order        Int       @default(0)
+
+  @@map("experiences")
+}
+
+model Education {
+  id          String    @id @default(uuid())
+  institution String
+  degree      String
+  field       String?
+  startDate   DateTime
+  endDate     DateTime?
+  grade       String?
+  createdAt   DateTime  @default(now())
+  order       Int       @default(0)
+
+  @@map("educations")
+}
+
+model Skill {
+  id        String   @id @default(uuid())
+  name      String
+  level     Int? // e.g., 1-100 or percent
+  category  String?
+  createdAt DateTime @default(now())
+
+  @@map("skills")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  ip        String? // optional for anti-spam / rate limiting
+  createdAt DateTime @default(now())
+
+  @@map("contactMessages")
+}
+
+model Media {
+  id        String   @id @default(uuid())
+  url       String
+  type      String // e.g., "image", "video", "pdf"
+  provider  String? // e.g., "s3", "cloudinary"
+  width     Int?
+  height    Int?
+  size      Int? // bytes
+  altText   String?
+  createdAt DateTime @default(now())
+  meta      Json?
+  ownerId   String? // optional: who uploaded
+
+  @@map("medias")
+}
+
+model Video {
+  id        String   @id @default(uuid())
+  url       String
+  type      String // e.g., "image", "video", "pdf"
+  provider  String? // e.g., "s3", "cloudinary"
+  width     Int?
+  height    Int?
+  size      Int? // bytes
+  altText   String?
+  createdAt DateTime @default(now())
+  meta      Json?
+  ownerId   String? // optional: who uploaded
+
+  @@map("videos")
+}
