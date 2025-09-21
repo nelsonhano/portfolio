@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -9,39 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ---------- Enums ----------
-
-enum Visibility {
-  PUBLIC
-  UNLISTED
-  PRIVATE
-}
-
-enum ProjectStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-// ---------- Models ----------
-
 model User {
-  id        String   @id @default(uuid())
-  email     String?  @unique
-  username  String   @unique
-  emailVerified Boolean @default(false)
-  name      String?
-  bio       String?
-  image     String?
-  googleId  String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  posts        Post[]
-  projects     Project[]
-  sessions     Session[]
-  accounts     Account[]
-  testimonials Testimonial[]
+  id            String        @id @default(uuid())
+  email         String?       @unique
+  username      String        @unique
+  emailVerified Boolean       @default(false)
+  name          String?
+  bio           String?
+  image         String?
+  googleId      String?       @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  accounts      Account[]
+  posts         Post[]
+  projects      Project[]
+  sessions      Session[]
+  testimonials  Testimonial[]
 
   @@map("users")
 }
@@ -50,15 +32,13 @@ model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  token     String
+  token     String   @unique
   createdAt DateTime
   updatedAt DateTime
   ipAddress String?
   userAgent String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("sessions")
 }
 
@@ -67,7 +47,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -77,10 +56,10 @@ model Account {
   password              String?
   createdAt             DateTime
   updatedAt             DateTime
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
-
 
 model Verification {
   id         String    @id
@@ -94,35 +73,33 @@ model Verification {
 }
 
 model Project {
-  id            String        @id @default(uuid())
+  id            String         @id @default(uuid())
   title         String
-  slug          String        @unique
+  slug          String         @unique
   shortDesc     String?
-  longDesc      String? // markdown or rich text stored as string
+  longDesc      String?
   urlLive       String?
   repoUrl       String?
-  videoUrl       String?
-  status        ProjectStatus @default(DRAFT)
+  videoUrl      String?
+  status        ProjectStatus  @default(DRAFT)
   publishedAt   DateTime?
-  featuredImage String? // primary image URL
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  version       Int           @default(1)
-  author        User          @relation(fields: [authorId], references: [id])
+  featuredImage String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  version       Int            @default(1)
   authorId      String
-
-  images       ProjectImage[]
-  tags         ProjectTag[]
-  technologies Technology[]
-  comment      Comment[]
-  meta         Json?
+  meta          Json?
+  comment       Comment[]
+  images        ProjectImage[]
+  tags          ProjectTag[]
+  author        User           @relation(fields: [authorId], references: [id])
+  technologies  Technology[]   @relation("ProjectToTechnology")
 
   @@map("projects")
 }
 
 model ProjectImage {
   id        String   @id @default(uuid())
-  project   Project  @relation(fields: [projectId], references: [id])
   projectId String
   url       String
   altText   String?
@@ -130,28 +107,28 @@ model ProjectImage {
   height    Int?
   order     Int      @default(0)
   createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
 
   @@map("projectImages")
 }
 
 model Tag {
-  id        String   @id @default(uuid())
+  id        String       @id @default(uuid())
   name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
-
-  projects ProjectTag[]
-  postTags PostTag[]
+  slug      String       @unique
+  createdAt DateTime     @default(now())
+  postTags  PostTag[]
+  projects  ProjectTag[]
 
   @@map("tags")
 }
 
 model ProjectTag {
   id        String  @id @default(uuid())
-  project   Project @relation(fields: [projectId], references: [id])
   projectId String
-  tag       Tag     @relation(fields: [tagId], references: [id])
   tagId     String
+  project   Project @relation(fields: [projectId], references: [id])
+  tag       Tag     @relation(fields: [tagId], references: [id])
 
   @@unique([projectId, tagId])
   @@map("projectTags")
@@ -162,7 +139,7 @@ model Technology {
   name      String
   slug      String    @unique
   createdAt DateTime  @default(now())
-  projects  Project[]
+  projects  Project[] @relation("ProjectToTechnology")
 
   @@map("technologys")
 }
@@ -172,27 +149,27 @@ model Post {
   title       String
   slug        String     @unique
   excerpt     String?
-  content     String // markdown / rich text
+  content     String
   publishedAt DateTime?
   visibility  Visibility @default(PUBLIC)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  author      User       @relation(fields: [authorId], references: [id])
   authorId    String
-  comments    Comment[]
   featuredImg String?
-  tags        PostTag[]
   meta        Json?
+  comments    Comment[]
+  tags        PostTag[]
+  author      User       @relation(fields: [authorId], references: [id])
 
   @@map("posts")
 }
 
 model PostTag {
   id     String @id @default(uuid())
-  post   Post   @relation(fields: [postId], references: [id])
   postId String
-  tag    Tag    @relation(fields: [tagId], references: [id])
   tagId  String
+  post   Post   @relation(fields: [postId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id])
 
   @@unique([postId, tagId])
   @@map("postTags")
@@ -205,10 +182,10 @@ model Comment {
   content     String
   createdAt   DateTime @default(now())
   approved    Boolean  @default(false)
-  post        Post?    @relation(fields: [postId], references: [id])
   postId      String?
-  project     Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String?
+  post        Post?    @relation(fields: [postId], references: [id])
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@map("comments")
 }
@@ -218,11 +195,11 @@ model Testimonial {
   content    String
   authorName String
   authorRole String?
-  author     User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId   String?
-  sourceUrl  String? // link to LinkedIn recommendation, etc.
+  sourceUrl  String?
   createdAt  DateTime   @default(now())
   visibility Visibility @default(PUBLIC)
+  author     User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   @@map("testimonials")
 }
@@ -236,7 +213,7 @@ model Experience {
   ongoing      Boolean   @default(false)
   location     String?
   summary      String?
-  achievements String[] // array of bullets
+  achievements String[]
   createdAt    DateTime  @default(now())
   order        Int       @default(0)
 
@@ -260,7 +237,7 @@ model Education {
 model Skill {
   id        String   @id @default(uuid())
   name      String
-  level     Int? // e.g., 1-100 or percent
+  level     Int?
   category  String?
   createdAt DateTime @default(now())
 
@@ -274,7 +251,7 @@ model ContactMessage {
   subject   String?
   message   String
   read      Boolean  @default(false)
-  ip        String? // optional for anti-spam / rate limiting
+  ip        String?
   createdAt DateTime @default(now())
 
   @@map("contactMessages")
@@ -283,15 +260,15 @@ model ContactMessage {
 model Media {
   id        String   @id @default(uuid())
   url       String
-  type      String // e.g., "image", "video", "pdf"
-  provider  String? // e.g., "s3", "cloudinary"
+  type      String
+  provider  String?
   width     Int?
   height    Int?
-  size      Int? // bytes
+  size      Int?
   altText   String?
   createdAt DateTime @default(now())
   meta      Json?
-  ownerId   String? // optional: who uploaded
+  ownerId   String?
 
   @@map("medias")
 }
@@ -299,15 +276,27 @@ model Media {
 model Video {
   id        String   @id @default(uuid())
   url       String
-  type      String // e.g., "image", "video", "pdf"
-  provider  String? // e.g., "s3", "cloudinary"
+  type      String
+  provider  String?
   width     Int?
   height    Int?
-  size      Int? // bytes
+  size      Int?
   altText   String?
   createdAt DateTime @default(now())
   meta      Json?
-  ownerId   String? // optional: who uploaded
+  ownerId   String?
 
   @@map("videos")
+}
+
+enum Visibility {
+  PUBLIC
+  UNLISTED
+  PRIVATE
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
