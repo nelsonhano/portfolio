@@ -5,10 +5,17 @@ export const metadata: Metadata = {
     title: "Sign in",
 };
 
-export default function SignIn() {
+export default function SignIn({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined };
+}) {
+    const redirect =
+        typeof searchParams.redirect === "string" ? searchParams.redirect : null;
+
     return (
         <main className="flex bg-foreground min-h-svh items-center justify-center px-4">
-            <SignInForm />
+            <SignInForm redirect={redirect} />
         </main>
     );
 }

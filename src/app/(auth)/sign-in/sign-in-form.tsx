@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -33,14 +33,11 @@ import { GoogleIcon } from "@/svg/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaTypes } from "@/lib/validation";
 
-export function SignInForm() {
+export function SignInForm({ redirect }: { redirect: string | null }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const redirect = searchParams.get("redirect");
 
   const form = useForm<LoginSchemaTypes>({
     resolver: zodResolver(loginSchema),
@@ -98,6 +95,7 @@ export function SignInForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {/* email field */}
             <FormField
               control={form.control}
               name="email"
@@ -118,6 +116,7 @@ export function SignInForm() {
               )}
             />
 
+            {/* password field */}
             <FormField
               control={form.control}
               name="password"
@@ -145,6 +144,7 @@ export function SignInForm() {
               )}
             />
 
+            {/* remember me */}
             <FormField
               control={form.control}
               name="rememberMe"
@@ -172,6 +172,7 @@ export function SignInForm() {
               Login
             </LoadingButton>
 
+            {/* social sign-in */}
             <div className="flex w-full flex-col items-center justify-between gap-2">
               <Button
                 type="button"
