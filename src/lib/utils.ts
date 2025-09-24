@@ -5,7 +5,8 @@ import {
   FolderDot, 
   Wrench, 
   Briefcase, 
-  LucideProps
+  LucideProps,
+  Newspaper
 } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { clsx, type ClassValue } from "clsx";
@@ -20,8 +21,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
-export const words = ["full stack", "Next.js", "Mern stack", "Pern stack"]
+export const words = ["Full stack", "Next.js", "Mern stack", "Pern stack"]
 export const description = "I’m a Full-Stack Web Developer with expertise in building sleek, user-friendly, and scalable digital experiences. From crafting pixel-perfect interfaces with Next.js, React, and Tailwind CSS to engineering robust backends with Node.js, Express, MongoDB, and PostgreSQL, I bridge design and functionality seamlessly. With a strong eye for detail and a drive for innovation, I turn ideas into powerful web solutions that don’t just work"
 
 export const technologiesImages = [
@@ -351,32 +351,37 @@ export const sections: Section[] = [
   {
     iconName: "Home",
     href: "#hero",
-    icon: Home, // 🏠 makes sense for landing
+    icon: Home,
   },
   {
     iconName: "About",
     href: "#about",
-    icon: User, // 👤 about me = user profile
+    icon: User,
   },
   {
     iconName: "Projects",
     href: "#projects",
-    icon: FolderDot, // 📂 folder-dot = projects/work
+    icon: FolderDot,
+  },
+  {
+    iconName: "Blogs",
+    href: "#blogs",
+    icon: Newspaper,
   },
   {
     iconName: "Skills",
     href: "#skills",
-    icon: Wrench, // 🔧 skills = tools
+    icon: Wrench,
   },
   {
     iconName: "Experience",
     href: "#experience",
-    icon: Briefcase, // 💼 career/work experience
+    icon: Briefcase,
   },
   {
     iconName: "Contact",
     href: "#contact",
-    icon: Mail, // ✉️ contact section
+    icon: Mail,
   },
 ];
 
@@ -456,3 +461,7 @@ export const skillSets = [
   }
 ];
 
+export enum Role {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}

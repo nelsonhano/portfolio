@@ -1,11 +1,21 @@
 import { adminRoutes } from "@/lib/utils";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import { 
+    Sidebar, 
+    SidebarContent, 
+    SidebarFooter, 
+    SidebarGroup, 
+    SidebarGroupContent, 
+    SidebarHeader, 
+    SidebarMenu, 
+    SidebarMenuButton, 
+    SidebarMenuItem 
+} from "../ui/sidebar";
 import Link from "next/link";
 
 export default function SideBar() {
     return (
-        <aside className=" text-white w-1/4">
-            <Sidebar>
+        <aside className="w-1/4">
+            <Sidebar className="bg-black">
                 <SidebarHeader>Admin Panel</SidebarHeader>
 
                 <SidebarContent>

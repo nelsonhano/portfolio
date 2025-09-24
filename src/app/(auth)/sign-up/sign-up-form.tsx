@@ -1,7 +1,12 @@
 "use client";
 
-import { LoadingButton } from "@/components/LoadingButton";
-import { PasswordInput } from "@/components/PasswordInput";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
+import { z } from "zod";
+
 import {
   Card,
   CardContent,
@@ -18,16 +23,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
-import { passwordSchema } from "@/lib/validation";
+import { LoadingButton } from "@/components/LoadingButton";
+import { PasswordInput } from "@/components/PasswordInput";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+import { passwordSchema } from "@/lib/validation";
+import { authClient } from "@/lib/auth-client";
+import { Input } from "@/components/ui/input";
+import { Role } from "@/lib/utils";
 
 const signUpSchema = z
   .object({
@@ -35,6 +37,7 @@ const signUpSchema = z
     username: z.string().min(1, { message: "Username is required" }),
     email: z.email({ message: "Please enter a valid email" }),
     password: passwordSchema,
+    role: z.enum(["ADMIN", "USER"]),
     passwordConfirmation: z
       .string()
       .min(1, { message: "Please confirm password" }),
@@ -46,7 +49,7 @@ const signUpSchema = z
 
 type SignUpValues = z.infer<typeof signUpSchema>;
 
-export function SignUpForm() {
+export function SignUpForm({ role }: { role: Role}) {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
@@ -58,26 +61,34 @@ export function SignUpForm() {
       email: "",
       password: "",
       username: "",
+      role,
       passwordConfirmation: "",
     },
   });
 
-  async function onSubmit({ email, password, name, username }: SignUpValues) {
+  async function onSubmit({
+    email,
+    password,
+    name,
+    username,
+    role,
+  }: SignUpValues) {
     setError(null);
 
-    const { error } = await authClient.signUp.email({
+    const { error, data } = await authClient.signUp.email({
       name,
       email,
       password,
       username,
-      callbackURL: "/admin",
+      role,
+      callbackURL: role === "ADMIN" ? "/admin" : "",
     });
 
     if (error) {
       setError(error.message || "Something went wrong");
     } else {
       toast.success("Signed up successfully");
-      router.push("/admin");
+      router.push(role === "ADMIN" ? "/admin" : `/users${data.user.id}`);
     }
   }
 

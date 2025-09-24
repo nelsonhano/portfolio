@@ -13,6 +13,7 @@ model User {
   email         String?       @unique
   username      String        @unique
   emailVerified Boolean       @default(false)
+  role          ROLE          @default(USER)
   name          String?
   bio           String?
   image         String?
@@ -26,6 +27,11 @@ model User {
   testimonials  Testimonial[]
 
   @@map("users")
+}
+
+enum ROLE {
+  ADMIN
+  USER
 }
 
 model Session {

@@ -4,7 +4,7 @@ import { TextGenerateEffect } from "./ui/text-generate-effect";
 
 export default function About() {
     return (
-        <div className="flex flex-col mt-5 text-white gap-2">
+        <div className="flex flex-col mt-5 text-white gap-2 overflow-x-hidden">
             <h4 className="!text-white text-2xl">👋 Hey hello</h4>
 
             <div className="flex flex-col text-4xl gap-1 font-serif">

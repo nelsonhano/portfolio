@@ -8,5 +8,4 @@ export const authClient = createAuthClient({
   plugins: [inferAdditionalFields<typeof auth>(), nextCookies()],
 });
 
-
 export const { signIn, signOut, signUp: { email }, useSession } = authClient;

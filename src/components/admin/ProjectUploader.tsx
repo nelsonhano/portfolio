@@ -2,6 +2,7 @@
 
 import { draftToMarkdown } from "markdown-draft-js";
 import { useForm } from "react-hook-form";
+import ReactPlayer from "react-player";
 
 import {
   Form,
@@ -18,6 +19,7 @@ import { Label } from "@/components/ui/label";
 import LoadingButton from "./LoadingButton";
 import RichTextEditor from "./RichTextEditor";
 import { createProject } from "@/lib/actions/admin.action";
+import { UploadButton } from "@/lib/uploadthing";
 
 export default function ProjectUploader() {
   const form = useForm<CreateProjectSchemaTypes>({
@@ -44,12 +46,9 @@ export default function ProjectUploader() {
   }
 
   return (
-    <main className="m-auto my-10 max-w-3xl space-y-10">
+    <main className="flex flex-col my-10 space-y-10">
       <div className="space-y-5 text-center">
-        <h1>Find your perfect developer</h1>
-        <p className="text-muted-foreground">
-          Get your job posting seen by thousands of job seekers.
-        </p>
+        <h1 className="text-amber-50">Upload Project Details.</h1>
       </div>
       <div className="space-y-6 rounded-lg border p-4">
         <div>
@@ -60,7 +59,7 @@ export default function ProjectUploader() {
         </div>
         <Form {...form}>
           <form
-            className="space-y-4"
+            className="space-y-4 text-white"
             noValidate
             onSubmit={handleSubmit(onSubmit)}
           >
@@ -69,9 +68,9 @@ export default function ProjectUploader() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Job title</FormLabel>
+                  <FormLabel>Project Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Frontend Developer" {...field} />
+                    <Input placeholder="e.g. facebook" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,9 +82,12 @@ export default function ProjectUploader() {
               name="shortDesc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company</FormLabel>
+                  <FormLabel>Short Description</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder="a scallable ai powered software"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,7 +99,7 @@ export default function ProjectUploader() {
               name="longDesc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company</FormLabel>
+                  <FormLabel>Long Description</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -136,18 +138,61 @@ export default function ProjectUploader() {
 
             <FormField
               control={control}
+              name="videoUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project Video</FormLabel>
+                  <FormControl>
+                    <UploadButton
+                      endpoint="projectVideoUploader"
+                      onClientUploadComplete={(res) => {
+                        const videoUrl = res?.[0].ufsUrl;
+                        if (!videoUrl) return;
+
+                        field.onChange(videoUrl);
+
+                        console.log("Files: ", res);
+                        alert("Upload Completed");
+                      }}
+                      onUploadError={(error: Error) => {
+                        // Do something with the error.
+                        alert(`ERROR! ${error.message}`);
+                      }}
+                    />
+                  </FormControl>
+                  {field.value && (
+                    <ReactPlayer
+                      playing={true}
+                      loop={false}
+                      url={field.value || ""}
+                    />
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
               name="featuredImage"
-              render={({ field: { value, ...fieldValues } }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Featured Image</FormLabel>
                   <FormControl>
-                    <Input
-                      {...fieldValues}
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        fieldValues.onChange(file);
+                    <UploadButton
+                      endpoint="projectFeaturedUploader"
+                      onClientUploadComplete={(res) => {
+                        const featuredImageUrl = res?.[0].ufsUrl;
+                        if (!featuredImageUrl) return;
+
+                        field.onChange(featuredImageUrl);
+
+                        console.log("Files: ", res);
+                        alert("Upload Completed");
+                      }}
+                      onUploadError={(error: Error) => {
+                        // Do something with the error.
+                        alert(`ERROR! ${error.message}`);
                       }}
                     />
                   </FormControl>
@@ -156,52 +201,74 @@ export default function ProjectUploader() {
               )}
             />
 
-            {/* <div className="space-y-2">
-              <Label htmlFor="applicationEmail">How to apply</Label>
-              <div className="flex justify-between">
-                <FormField
-                  control={control}
-                  name="applicationEmail"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormControl>
-                        <div className="flex items-center">
-                          <Input
-                            id="applicationEmail"
-                            placeholder="Email"
-                            type="email"
-                            {...field}
-                          />
-                          <span className="mx-2">or</span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={control}
+              name="images"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project Images</FormLabel>
+                  <FormControl>
+                    <UploadButton
+                      endpoint="projectImgUploader"
+                      onClientUploadComplete={(res) => {
+                        const imgUrl = res?.[0].ufsUrl;
+                        if (!imgUrl) return;
+                        field.onChange(imgUrl);
+                        console.log("Files: ", res);
+                        alert("Upload Completed");
+                      }}
+                      onUploadError={(error: Error) => {
+                        // Do something with the error.
+                        alert(`ERROR! ${error.message}`);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                <FormField
-                  control={control}
-                  name="applicationUrl"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormControl>
-                        <Input
-                          placeholder="Website"
-                          type="url"
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e);
-                            trigger("applicationEmail");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div> */}
+            <FormField
+              control={control}
+              name="version"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Version</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="urlLive"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project Live Url</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="url" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="repoUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project GitHub Url</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="url" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={control}
@@ -218,48 +285,6 @@ export default function ProjectUploader() {
                       }
                       ref={field.ref}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="version"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Salary</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="number" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="urlLive"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Salary</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="url" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="repoUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Salary</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="url" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

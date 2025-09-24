@@ -7,7 +7,7 @@ import { getServerSession } from "@/lib/get-session";
 import { unauthorized } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Admin | My portfolio",
+  title: "Admin",
 };
 
 export default async function RootLayout({
@@ -22,7 +22,7 @@ export default async function RootLayout({
     
   return (
     <SidebarProvider>
-      <main className="flex w-full">
+      <main className="flex w-full mt-20">
         <SideBar />
         {children}
       </main>

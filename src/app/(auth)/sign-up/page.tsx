@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { SignUpForm } from "./sign-up-form";
+import { Role } from "@/lib/utils";
 
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function SignUp() {
     return (
         <main className="flex bg-foreground min-h-svh items-center justify-center px-4">
-            <SignUpForm />
+            <SignUpForm role={Role.ADMIN} />
         </main>
     );
 }

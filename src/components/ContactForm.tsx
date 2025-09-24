@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { contactFormSchema, ContactFormType } from "@/lib/validation";
+import { BackgroundGradient } from "./ui/background-gradient";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "./ui/textarea";
-import { Input } from "./input";
-import { BackgroundGradient } from "./ui/background-gradient";
 import { Button } from "./ui/button";
+import { Input } from "./input";
 
 export default function ContactForm() {
   const form = useForm<ContactFormType>({
