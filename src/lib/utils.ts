@@ -16,6 +16,7 @@ import MessageCircle from "@/svg/MessageCircle";
 import FileText from "@/svg/FileText";
 import FilePlus from "@/svg/FilePlus";
 import Folder from "@/svg/Folder";
+import { CreateProjectSchemaTypes } from "./validation";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -465,3 +466,73 @@ export enum Role {
   ADMIN = "ADMIN",
   USER = "USER",
 }
+
+export async function waitForImageReady(src: string, timeout = 1000): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve();
+    img.onerror = () => reject(new Error("Image failed to load"));
+    img.src = src;
+
+    setTimeout(() => {
+      reject(new Error("Image load timed out"));
+    }, timeout);
+  });
+}
+
+export const formComponent: {
+  endpoint?: "projectImgUploader" | "projectVideoUploader" | "projectFeaturedUploader";
+  name: keyof CreateProjectSchemaTypes;
+  label: string;
+  placeholder?: string;
+  type: "text" | "img" | "video" | "url" | "description";
+}[] = [
+  {
+    name: "title",
+    label: "Project Name",
+    placeholder: "e.g. facebook",
+    type: "text"
+  },
+  {
+    name: "shortDesc",
+    label: "Short Description",
+    placeholder: "a scallable ai powered software",
+    type: "text"
+  },
+  {
+    name: "longDesc",
+    label: "Long Description",
+    type: "description"
+    // placeholder: "a scallable ai powered software"
+  },
+  {
+    name: "videoUrl",
+    label: "Upload Project Video",
+    type: "video",
+    endpoint: "projectVideoUploader"
+  },
+  {
+    name: "images",
+    label: "Project Images",
+    type: "img",
+    endpoint: "projectImgUploader"
+  },
+  {
+    name: "featuredImage",
+    label: "Image Banner",
+    type: "img",
+    endpoint: "projectFeaturedUploader"
+  },
+  {
+    name: "urlLive",
+    label: "Project Live Url",
+    type: "url",
+    placeholder: "a scallable ai powered software"
+  },
+  {
+    name: "repoUrl",
+    label: "Project GitHub Url",
+    type: "url",
+    placeholder: "a scallable ai powered software"
+  }
+]

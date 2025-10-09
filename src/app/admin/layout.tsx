@@ -22,7 +22,7 @@ export default async function RootLayout({
     
   return (
     <SidebarProvider>
-      <main className="flex w-full mt-20">
+      <main className="flex w-full">
         <SideBar />
         {children}
       </main>

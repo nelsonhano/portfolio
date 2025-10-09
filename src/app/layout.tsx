@@ -1,22 +1,13 @@
-import { extractRouterConfig } from "uploadthing/server";
-import { fileUploader } from "./api/uploadthing/core";
 import { Inter } from "next/font/google";
-import { connection } from "next/server";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
-
-async function UTSSR() {
-  await connection();
-  return <NextSSRPlugin routerConfig={extractRouterConfig(fileUploader)} />;
-}
 
 export const metadata: Metadata = {
   title: {
@@ -35,9 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} bg-foreground antialiased`}>
-        <Suspense>
-          <UTSSR />
-        </Suspense>
         <div className="min-h-screen w-full bg-black relative">
           <div
             className="absolute inset-0 z-0"
@@ -56,6 +44,7 @@ export default function RootLayout({
             <div>{children}</div>
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );

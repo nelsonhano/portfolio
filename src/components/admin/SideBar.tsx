@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function SideBar() {
     return (
-        <aside className="w-1/4">
+        <aside>
             <Sidebar className="bg-black">
                 <SidebarHeader>Admin Panel</SidebarHeader>
 

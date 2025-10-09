@@ -1,3 +1,3 @@
 export default function page() {
-  return <div className="text-white  w-3/4">Admin Page</div>;
+  return <div className="text-white">Admin Page</div>;
 }

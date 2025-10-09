@@ -38,12 +38,9 @@ export const createProjectSchema = z.object({
   longDesc: z.string().min(50, "Minimum of 50 characters").max(1000, "Must be at most 1000 characters"),
   featuredImage: z.string(),
   videoUrl: z.string(),
-  version: z.number(),
   slug: z.string(),
-  //TODO: image & technologies validation that will accept zod validation for array of strings
   images: z.string(),
   technologies: z.string(),
-  tags: z.string(),
   urlLive: z.url(),
   repoUrl: z.url(),
 });
