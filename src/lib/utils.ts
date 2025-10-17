@@ -202,45 +202,6 @@ export const technologiesImages = [
   }
 ]
 
-export const adminRoutes = [
-  {
-    id: 1,
-    name: "Projects",
-    url: "/admin/project",
-    icon: Folder
-  },
-  {
-    id: 2,
-    name: "Create Project",
-    url: "/admin/project/upload-project",
-    icon: FilePlus
-  },
-  {
-    id: 3,
-    name: "Blogs",
-    url: "/admin/blog",
-    icon: FileText
-  },
-  {
-    id: 4,
-    name: "Create Blog",
-    url: "/admin/create-blog",
-    icon: FilePlus
-  },
-  {
-    id: 5,
-    name: "Contact",
-    url: "/admin/contact",
-    icon: Mail
-  },
-  {
-    id: 6,
-    name: "Messages",
-    url: "/admin/messages",
-    icon: MessageCircle
-  } 
-  ]
-
 export type Section = {
   iconName: string;
   href: string;
@@ -267,7 +228,7 @@ export const post = [
     slug: "saas_web_application_2",
     title: "Saas web application",
     version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
+    urlLive: "https://nextjs-social-media-app-lilac.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
@@ -281,7 +242,7 @@ export const post = [
     slug: "saas_web_application_3",
     title: "Saas web application",
     version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
+    urlLive: "https://nextjs-job-board-beta.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
@@ -295,7 +256,7 @@ export const post = [
     slug: "saas_web_application_4",
     title: "Saas web application",
     version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
+    urlLive: "https://library-management-system-six-khaki.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
@@ -309,7 +270,7 @@ export const post = [
     slug: "saas_web_application_5",
     title: "Saas web application",
     version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
+    urlLive: "https://store-it-kohl-eight.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
@@ -317,35 +278,7 @@ export const post = [
     createdAt: "",
     updatedAt: "",
     featuredImage: "/asserts/nodejs.png",
-  },
-  {
-    id: 6,
-    slug: "saas_web_application_6",
-    title: "Saas web application",
-    version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
-    longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
-    shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
-  },
-  {
-    id: 7,
-    slug: "saas_web_application_7",
-    title: "Saas web application",
-    version: "1.2",
-    urlLive: "https://www.imaginify.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
-    longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
-    shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
-  },
+  }
 ];
 
 export const sections: Section[] = [
@@ -461,78 +394,3 @@ export const skillSets = [
     ]
   }
 ];
-
-export enum Role {
-  ADMIN = "ADMIN",
-  USER = "USER",
-}
-
-export async function waitForImageReady(src: string, timeout = 1000): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = () => reject(new Error("Image failed to load"));
-    img.src = src;
-
-    setTimeout(() => {
-      reject(new Error("Image load timed out"));
-    }, timeout);
-  });
-}
-
-export const formComponent: {
-  endpoint?: "projectImgUploader" | "projectVideoUploader" | "projectFeaturedUploader";
-  name: keyof CreateProjectSchemaTypes;
-  label: string;
-  placeholder?: string;
-  type: "text" | "img" | "video" | "url" | "description";
-}[] = [
-  {
-    name: "title",
-    label: "Project Name",
-    placeholder: "e.g. facebook",
-    type: "text"
-  },
-  {
-    name: "shortDesc",
-    label: "Short Description",
-    placeholder: "a scallable ai powered software",
-    type: "text"
-  },
-  {
-    name: "longDesc",
-    label: "Long Description",
-    type: "description"
-    // placeholder: "a scallable ai powered software"
-  },
-  {
-    name: "videoUrl",
-    label: "Upload Project Video",
-    type: "video",
-    endpoint: "projectVideoUploader"
-  },
-  {
-    name: "images",
-    label: "Project Images",
-    type: "img",
-    endpoint: "projectImgUploader"
-  },
-  {
-    name: "featuredImage",
-    label: "Image Banner",
-    type: "img",
-    endpoint: "projectFeaturedUploader"
-  },
-  {
-    name: "urlLive",
-    label: "Project Live Url",
-    type: "url",
-    placeholder: "a scallable ai powered software"
-  },
-  {
-    name: "repoUrl",
-    label: "Project GitHub Url",
-    type: "url",
-    placeholder: "a scallable ai powered software"
-  }
-]
