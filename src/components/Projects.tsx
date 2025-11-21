@@ -1,7 +1,8 @@
-import { post } from "@/lib/utils";
-import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import { Suspense } from "react";
+
+import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import { SkeletonCard } from "./SkeletonCard";
+import { post } from "@/lib/utils";
 
 export default function Projects() {
     return (

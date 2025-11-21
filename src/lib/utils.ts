@@ -12,12 +12,6 @@ import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import MessageCircle from "@/svg/MessageCircle";
-import FileText from "@/svg/FileText";
-import FilePlus from "@/svg/FilePlus";
-import Folder from "@/svg/Folder";
-import { CreateProjectSchemaTypes } from "./validation";
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -84,7 +78,6 @@ export const technologiesImages = [
     id: 10,
     src: "/asserts/git.png",
     alt: "git",
-    description: "Git is a distributed version control system that tracks code changes and supports collaboration across teams. It enables branching, merging, and rollback of code, making it essential for modern software development workflows."
   },
   {
     id: 11,
@@ -213,71 +206,111 @@ export const post = [
     id: 1,
     slug: "saas_web_application_1",
     title: "Saas web application",
-    version: "1.2",
     urlLive: "https://www.imaginify.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
+    projectImgs: [
+      "/asserts/project/image/imaginify-home-page.jpeg", 
+      "/asserts/project/image/imaginify-profile-page.jpeg",
+      "/asserts/project/image/imaginify-restore-page.jpeg",
+      "/asserts/project/image/imaginify-credit-page.jpeg"  
+    ],
+    projectVideo: ["/asserts/project/video"]
   },
   {
     id: 2,
     slug: "saas_web_application_2",
     title: "Saas web application",
-    version: "1.2",
     urlLive: "https://nextjs-social-media-app-lilac.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
+    repoUrl: "https://github.com/nelsonhano/nextjs-social-media-app",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
+    projectImgs: [
+      "/asserts/project/image/social-home.jpeg", 
+      "/asserts/project/image/social-login.jpeg",
+      "/asserts/project/image/social-log-out.jpeg",
+      "/asserts/project/image/social-profile.jpeg",
+      "/asserts/project/image/social-notification.jpeg"  
+    ],
+    projectVideo: ["/asserts/project/video"]
   },
   {
     id: 3,
     slug: "saas_web_application_3",
     title: "Saas web application",
-    version: "1.2",
     urlLive: "https://nextjs-job-board-beta.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
+    repoUrl: "https://github.com/nelsonhano/nextjs-job-board",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
+    projectImgs: [
+      "/asserts/project/image/jobboard-home-page.jpeg", 
+      "/asserts/project/image/jobboard-upload-page.jpeg", 
+      "/asserts/project/image/jobboard-job-detail-page.jpeg",
+    ],
+    projectVideo: ["/asserts/project/video"]
   },
   {
     id: 4,
     slug: "saas_web_application_4",
     title: "Saas web application",
-    version: "1.2",
     urlLive: "https://library-management-system-six-khaki.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
+    repoUrl: "https://github.com/nelsonhano/hospital_management_system",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
+    projectImgs: [
+      "/asserts/project/image/library-home-page.jpeg",
+      "/asserts/project/image/library-sign-in.jpeg",
+      "/asserts/project/image/library-sign-up.jpeg",
+      "/asserts/project/image/admin.jpeg",
+      "/asserts/project/image/library-borrow.jpeg",
+      "/asserts/project/image/library-desc-book.jpeg",
+      "/asserts/project/image/library-latest-book.jpeg",  
+    ],
+    projectVideo: ["/asserts/project/video"]
   },
   {
     id: 5,
     slug: "saas_web_application_5",
     title: "Saas web application",
-    version: "1.2",
     urlLive: "https://store-it-kohl-eight.vercel.app",
-    repoUrl: "https://www.github.com/nelsonhano/imaginify",
+    repoUrl: "https://github.com/nelsonhano/store_it",
     videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
-    createdAt: "",
-    updatedAt: "",
-    featuredImage: "/asserts/nodejs.png",
+    projectImgs: [
+      "/asserts/project/image/storeIt-sign-up.jpeg",
+      "/asserts/project/image/storeIt-sign-in.jpeg",
+      "/asserts/project/image/storeIt-otp.jpeg",
+      "/asserts/project/image/storeIt-rename-page.jpeg",
+      "/asserts/project/image/storeIt-img-page.jpeg",
+      "/asserts/project/image/storeIt-detail-page.jpeg",
+      "/asserts/project/image/storeIt-del-page.jpeg",  
+    ],
+    projectVideo: ["/asserts/project/video"]
+  },
+  {
+    id: 6,
+    slug: "saas_web_application_5",
+    title: "Saas web application",
+    urlLive: "https://thread-koinyan-nelsons-projects.vercel.app/",
+    repoUrl: "https://github.com/nelsonhano/thread",
+    videoUrl: "https://www.github.com/nelsonhano/imaginify",
+    longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
+    shortDesc: "Imaginify is an AI powered saas application for picture",
+    projectImgs: [
+      "/asserts/project/image/thread-home.jpeg",
+      "/asserts/project/image/thread-activity.jpeg",
+      "/asserts/project/image/thread-org.jpeg",
+      "/asserts/project/image/thread-search.jpeg",
+      "/asserts/project/image/thread-community.jpeg",
+      "/asserts/project/image/create-thread.jpeg",  
+    ],
+    projectVideo: ["/asserts/project/video"]
   }
 ];
 
@@ -349,7 +382,6 @@ export const skillSets = [
     category: "Architecture & Design",
     skills: [
       "Clean Architecture & Domain-Driven Design (DDD)",
-      "API Versioning & Documentation (Swagger, Postman)",
       "Caching Strategies (Redis, CDN, In-Memory)",
       "Design Patterns (Observer, Factory, Pub/Sub, Singleton)",
       "Testing (Jest, Vitest, Supertest, Cypress, Playwright)",
@@ -394,3 +426,167 @@ export const skillSets = [
     ]
   }
 ];
+
+type Project = (typeof post)[number];
+
+
+export const buildProjectOverviewItems = (project: Project) => {
+  switch (project.slug) {
+    case "saas_web_application_1": {
+      // Imaginify – AI image SaaS
+      return [
+        {
+          id: 1,
+          src: "/asserts/cloudinary.png",
+          alt: "Project requirements",
+          description:
+            "Enable users to upload images, run AI-powered transformations, manage credits, and securely handle authentication and billing.",
+        },
+        {
+          id: 2,
+          src: "/asserts/reactjs.png",
+          alt: "Core functionality",
+          description:
+            "Users can sign in, upload images, apply restore/transform actions, track history, and manage their profile in a responsive dashboard.",
+        },
+        {
+          id: 3,
+          src: "/asserts/tailwindcss.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js & React handle routing and UI, Tailwind CSS styles the dashboard, Cloudinary manages media storage and transformations, and an API layer orchestrates AI calls and credit logic.",
+        },
+      ];
+    }
+    case "saas_web_application_2": {
+      // Social media app
+      return [
+        {
+          id: 1,
+          src: "/asserts/reactjs.png",
+          alt: "Project requirements",
+          description:
+            "Provide a social platform where users can create accounts, post content, follow others, and interact via likes and comments.",
+        },
+        {
+          id: 2,
+          src: "/asserts/mongoDB.png",
+          alt: "Core functionality",
+          description:
+            "Supports auth, real-time-like feeds, profile pages, notifications, and search, optimized for mobile and desktop.",
+        },
+        {
+          id: 3,
+          src: "/asserts/typescript.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js & React render the UI, TypeScript adds type safety, a Node.js API persists posts and relationships in a database, and Tailwind CSS ensures a consistent design system.",
+        },
+      ];
+    }
+    case "saas_web_application_3": {
+      // Job board
+      return [
+        {
+          id: 1,
+          src: "/asserts/postgreSQL.png",
+          alt: "Project requirements",
+          description:
+            "Let companies publish jobs and candidates search, filter, and apply to roles with structured job metadata.",
+        },
+        {
+          id: 2,
+          src: "/asserts/drizzle.png",
+          alt: "Core functionality",
+          description:
+            "Implements job creation, listing, search by keywords/location, and detailed job pages with application flows.",
+        },
+        {
+          id: 3,
+          src: "/asserts/prisma.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js handles server-side rendering and routing, an ORM manages relational job data, and a SQL database like PostgreSQL stores jobs, companies, and applications.",
+        },
+      ];
+    }
+    case "saas_web_application_4": {
+      // Library management system
+      return [
+        {
+          id: 1,
+          src: "/asserts/postgreSQL.png",
+          alt: "Project requirements",
+          description:
+            "Digitize library operations: manage books, members, borrowing, returns, and admin reporting.",
+        },
+        {
+          id: 2,
+          src: "/asserts/nodejs.png",
+          alt: "Core functionality",
+          description:
+            "Provides auth for admins and members, book catalog browsing, borrow/return flows, and tracking of latest and popular titles.",
+        },
+        {
+          id: 3,
+          src: "/asserts/typescript.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js & React power the UI, a Node.js/TypeScript backend enforces business rules, and a relational database stores inventory, member, and transaction records.",
+        },
+      ];
+    }
+    case "saas_web_application_5": {
+      // Store-it file storage app (and thread clone shares slug but different UI)
+      return [
+        {
+          id: 1,
+          src: "/asserts/vercel-blob.png",
+          alt: "Project requirements",
+          description:
+            "Offer a secure, user-friendly interface for uploading, organizing, renaming, and deleting user files.",
+        },
+        {
+          id: 2,
+          src: "/asserts/upload-thing.png",
+          alt: "Core functionality",
+          description:
+            "Includes auth-protected storage, OTP/verification during sign-up, folder-style organization, and detailed file views.",
+        },
+        {
+          id: 3,
+          src: "/asserts/typescript.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js routes and server actions handle uploads, UploadThing or blob storage persists files, and TypeScript, React, and Tailwind CSS keep the UI robust and responsive.",
+        },
+      ];
+    }
+    default: {
+      // Fallback generic description
+      return [
+        {
+          id: 1,
+          src: "/asserts/reactjs.png",
+          alt: "Project requirements",
+          description:
+            "A modern full-stack web application focused on a clean UX and clear business requirements.",
+        },
+        {
+          id: 2,
+          src: "/asserts/nodejs.png",
+          alt: "Core functionality",
+          description:
+            "Implements authentication, domain-specific features, and fast, reliable data access.",
+        },
+        {
+          id: 3,
+          src: "/asserts/typescript.png",
+          alt: "Tech stack & roles",
+          description:
+            "Next.js & React render the UI, a Node/TypeScript backend handles business logic, and a database stores persistent state.",
+        },
+      ];
+    }
+  }
+}

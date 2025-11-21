@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
 
 export const BackgroundGradient = ({
@@ -10,7 +10,7 @@ export const BackgroundGradient = ({
     containerClassName,
     animate = true,
 }: {
-    children?: React.ReactNode;
+    children?: ReactNode;
     className?: string;
     containerClassName?: string;
     animate?: boolean;
