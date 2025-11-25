@@ -208,7 +208,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://www.imaginify.vercel.app",
     repoUrl: "https://www.github.com/nelsonhano/imaginify",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -217,7 +216,7 @@ export const post = [
       "/asserts/project/image/imaginify-restore-page.jpeg",
       "/asserts/project/image/imaginify-credit-page.jpeg"  
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   },
   {
     id: 2,
@@ -225,7 +224,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://nextjs-social-media-app-lilac.vercel.app",
     repoUrl: "https://github.com/nelsonhano/nextjs-social-media-app",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -235,7 +233,7 @@ export const post = [
       "/asserts/project/image/social-profile.jpeg",
       "/asserts/project/image/social-notification.jpeg"  
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   },
   {
     id: 3,
@@ -243,7 +241,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://nextjs-job-board-beta.vercel.app",
     repoUrl: "https://github.com/nelsonhano/nextjs-job-board",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -251,7 +248,7 @@ export const post = [
       "/asserts/project/image/jobboard-upload-page.jpeg", 
       "/asserts/project/image/jobboard-job-detail-page.jpeg",
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   },
   {
     id: 4,
@@ -259,7 +256,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://library-management-system-six-khaki.vercel.app",
     repoUrl: "https://github.com/nelsonhano/hospital_management_system",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -271,7 +267,7 @@ export const post = [
       "/asserts/project/image/library-desc-book.jpeg",
       "/asserts/project/image/library-latest-book.jpeg",  
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   },
   {
     id: 5,
@@ -279,7 +275,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://store-it-kohl-eight.vercel.app",
     repoUrl: "https://github.com/nelsonhano/store_it",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -291,7 +286,7 @@ export const post = [
       "/asserts/project/image/storeIt-detail-page.jpeg",
       "/asserts/project/image/storeIt-del-page.jpeg",  
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   },
   {
     id: 6,
@@ -299,7 +294,6 @@ export const post = [
     title: "Saas web application",
     urlLive: "https://thread-koinyan-nelsons-projects.vercel.app/",
     repoUrl: "https://github.com/nelsonhano/thread",
-    videoUrl: "https://www.github.com/nelsonhano/imaginify",
     longDesc: "Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture Imaginify is an AI powered saas application for picture",
     shortDesc: "Imaginify is an AI powered saas application for picture",
     projectImgs: [
@@ -310,7 +304,7 @@ export const post = [
       "/asserts/project/image/thread-community.jpeg",
       "/asserts/project/image/create-thread.jpeg",  
     ],
-    projectVideo: ["/asserts/project/video"]
+    projectVideo: []
   }
 ];
 

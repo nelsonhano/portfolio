@@ -83,7 +83,6 @@ export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params;
 
   const project = post.find((p) => p.slug === slug);
-  // console.log(post.slug, slug);
 
   if (!project) {
     notFound();
@@ -93,9 +92,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-16 py-12 text-white">
-      {/* 1. Description + images */}
       <div className="grid gap-10 md:grid-cols-2">
-        {/* Left: project description */}
         <div className="space-y-4">
           <h1 className="text-3xl font-bold md:text-4xl">{project.title}</h1>
           <p className="text-sm text-slate-300">{project.shortDesc}</p>
@@ -120,7 +117,6 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Right: image carousel */}
         <div className="relative">
           <Carousel className="w-full">
             <CarouselContent>
@@ -144,7 +140,6 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* 2. Video section (optional) */}
       {project.projectVideo && project.projectVideo.length > 0 && (
         <div className="space-y-4 w-full">
           <h2 className="text-2xl font-semibold">Project demo</h2>
