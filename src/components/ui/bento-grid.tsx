@@ -76,12 +76,12 @@ export const BentoGridItem = ({
 						<div className="mt-2 mb-2 font-sans text-white">{title}</div>
 						<div className="flex justify-between">
 							<div className="flex gap-1 text-white">
-								<Link href={urlLive}>
+								<Link href={repoUrl}>
 									<ToolTip message="Github Repo">
 										<Github className="w-7 h-7 border-2 cursor-pointer border-white rounded-full p-1" />
 									</ToolTip>
 								</Link>
-								<Link href={repoUrl}>
+								<Link href={urlLive}>
 									<ToolTip message="Live Site">
 										<LinkIcon className="border-2 border-white cursor-pointer rounded-full p-1 w-7 h-7" />
 									</ToolTip>
